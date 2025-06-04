@@ -1,61 +1,19 @@
-interface User {
-  name: string;
-  age: number;
-}
-
-interface IntroduceProps {
-  name: string;
-  age: number;
-}
-
-interface UserProps {
-  user: User;
-  isActive: boolean;
-  hobbyData: string[];
-}
-
-const Introduce = ({ name, age }: IntroduceProps) => {
-  return (
-    <div>
-      <p>이름 : {name}</p>
-      <p>나이 : {age}</p>
-    </div>
-  );
-};
-
-const UserInfo = ({ user, isActive, hobbyData }: UserProps) => {
-  return (
-    <>
-      <h2>정보</h2>
-      <div>
-        <p>이름 : {user.name}</p>
-        <p>나이 : {user.age}</p>
-        <p>{isActive ? "활성화" : "비활성화"}</p>
-      </div>
-      <h2>취미</h2>
-      <ul>
-        {hobbyData.map((hobby, index) => (
-          <li key={index}>
-            {index + 1}. {hobby}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-};
-
 export default function Home() {
-  const userData: User = {
-    name: "홍길동",
-    age: 20,
-  };
-
-  const hobbyData: string[] = ["게임", "음악", "운동"];
-
   return (
-    <div>
-      <Introduce name="홍길동" age={20} />
-      <UserInfo user={userData} isActive={true} hobbyData={hobbyData} />
+    <div className="text-center">
+      <h1 className="text-4xl font-bold text-gray-800 mb-6">리액트 튜토리얼에 오신 것을 환영합니다! 👋</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        위의 내비게이션 바를 사용하여 다른 페이지로 이동해보세요.
+      </p>
+      <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">이 튜토리얼에서 배울 내용</h2>
+        <ul className="text-left space-y-2 text-gray-700">
+          <li>• React 컴포넌트와 프롭스</li>
+          <li>• 상태 관리</li>
+          <li>• 라우팅</li>
+          <li>• API 연동</li>
+        </ul>
+      </div>
     </div>
   );
 }
