@@ -3,20 +3,45 @@
 import { useState } from "react";
 
 export default function State() {
-  const [count, setCount] = useState(0);
+  const [numbers, setNumbers] = useState<number[]>([]);
+  const [inputValue, setInputValue] = useState<number>(0);
 
-  const increaseNum = () => setCount(count + 1);
-  const decreaseNum = () => setCount(count - 1);
-  const resetNum = () => setCount(0);
+  const recordNumber = () => {
+    setNumbers([...numbers, inputValue]);
+    setInputValue(0);
+  };
+
+  const resetNumbers = () => {
+    setNumbers([]);
+    setInputValue(0);
+  };
 
   return (
     <div>
-      <div>숫자 : {count}</div>
-      <button onClick={increaseNum}>증가</button>
-      &nbsp;
-      <button onClick={decreaseNum}>감소</button>
-      &nbsp;
-      <button onClick={resetNum}>초기화</button>
+      <div>
+        <input
+          type="number"
+          value={inputValue}
+          onChange={(e) => setInputValue(Number(e.target.value))}
+        />
+        <button onClick={recordNumber}>기록</button>
+        &nbsp;
+        <button onClick={resetNumbers}>리셋</button>
+      </div>
+      <div>
+        {numbers.length > 0 && (
+          <>
+            <h1>기록된 숫자</h1>
+            <ul>
+              {numbers.map((number, index) => (
+                <li key={index}>
+                  {index + 1} : {number}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </div>
   );
 }
