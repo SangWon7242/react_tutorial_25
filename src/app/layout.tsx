@@ -20,23 +20,22 @@ const navItems: NavItem[] = [
 
 function Header() {
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-800">리액트 튜토리얼</h1>
-        <nav>
-          <ul className="flex space-x-6">
+    <header className="bg-base-200">
+      <div className="navbar container mx-auto">
+        <div className="navbar-start">
+          <h1 className="text-xl font-bold">리액트 튜토리얼</h1>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 gap-2">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="text-gray-600 hover:text-blue-600 transition-colors"
-                >
+                <Link href={item.href} className="btn btn-ghost">
                   {item.name}
                 </Link>
               </li>
             ))}
           </ul>
-        </nav>
+        </div>
       </div>
     </header>
   );
@@ -48,10 +47,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="h-full">
-      <body className="h-full bg-gray-50">
+    <html lang="ko" data-theme="light">
+      <body className="min-h-screen flex flex-col">
         <Header />
-        <main className="container mx-auto px-4 py-8">{children}</main>
+        <main className="flex-grow flex items-center justify-center p-4">
+          <div className="w-full min-w-xl max-w-[1200px]">{children}</div>
+        </main>
       </body>
     </html>
   );
