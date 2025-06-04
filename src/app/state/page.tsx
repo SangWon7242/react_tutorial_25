@@ -4,16 +4,17 @@ import { useState } from "react";
 
 export default function State() {
   const [numbers, setNumbers] = useState<number[]>([]);
-  const [inputValue, setInputValue] = useState<number>(0);
+  const [inputValue, setInputValue] = useState<string>("");
 
   const recordNumber = () => {
-    setNumbers([...numbers, inputValue]);
-    setInputValue(0);
+    const num = inputValue === "" ? 0 : Number(inputValue);
+    setNumbers([...numbers, num]);
+    setInputValue("");
   };
 
   const resetNumbers = () => {
     setNumbers([]);
-    setInputValue(0);
+    setInputValue("");
   };
 
   return (
@@ -22,7 +23,9 @@ export default function State() {
         <input
           type="number"
           value={inputValue}
-          onChange={(e) => setInputValue(Number(e.target.value))}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="숫자를 입력하세요"
+          className="border p-2 mr-2"
         />
         <button onClick={recordNumber}>기록</button>
         &nbsp;
