@@ -11,6 +11,7 @@ export default function State() {
     if (inputValue.trim().length === 0) {
       alert("숫자를 입력해주세요");
       inputRef.current?.focus();
+      setInputValue("");
       return;
     }
 
@@ -26,8 +27,15 @@ export default function State() {
     inputRef.current?.focus();
   };
 
+  const removeNumber = (index: number) => {
+    const newNumbers = numbers.filter((_, i) => i !== index);
+    setNumbers(newNumbers);
+    setInputValue("");
+    inputRef.current?.focus();
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" || e.key === "NumpadEnter") {
       recordNumber();
     }
   };
@@ -42,7 +50,7 @@ export default function State() {
             type="number"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
             placeholder="숫자를 입력하세요"
             className="input input-bordered flex-grow"
             ref={inputRef}
@@ -76,6 +84,14 @@ export default function State() {
                     <tr key={index} className="hover">
                       <th>{index + 1}</th>
                       <td className="font-mono">{number}</td>
+                      <td>
+                        <button
+                          onClick={() => removeNumber(index)}
+                          className="btn btn-sm btn-ghost text-error"
+                        >
+                          삭제
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
