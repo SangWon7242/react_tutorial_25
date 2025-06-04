@@ -1,29 +1,21 @@
-const square = {
-  width: "200px",
-  height: "200px",
-  backgroundColor: "green",
-};
+interface IntroduceProps {
+  name: string;
+  age: number;
+}
 
-const Square2 = () => {
-  const square = {
-    width: "200px",
-    height: "200px",
-    backgroundColor: "purple",
-  };
-
-  return <div style={square}></div>;
+const Introduce = ({ name, age }: IntroduceProps) => {
+  return (
+    <div>
+      <p>이름 : {name}</p>
+      <p>나이 : {age}</p>
+    </div>
+  );
 };
 
 export default function Home() {
   return (
-    <>
-      <div
-        style={{ width: "200px", height: "200px", backgroundColor: "red" }}
-      ></div>
-
-      <div className="w-[200px] h-[200px] bg-blue-500"></div>
-      <div style={square}></div>
-      <Square2 />
-    </>
+    <div>
+      <Introduce name="홍길동" age={20} />
+    </div>
   );
 }
