@@ -1,21 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function State() {
   const [numbers, setNumbers] = useState<number[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>("");
 
   const recordNumber = () => {
-    if (inputValue === "") return;
-    const num = Number(inputValue);
+    if (inputValue.trim().length === 0) {
+      alert("숫자를 입력해주세요");
+      inputRef.current?.focus();
+      return;
+    }
+
+    const num = Number(inputValue); // 형변환
     setNumbers([...numbers, num]);
     setInputValue("");
+    inputRef.current?.focus();
   };
 
   const resetNumbers = () => {
     setNumbers([]);
     setInputValue("");
+    inputRef.current?.focus();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -37,12 +45,9 @@ export default function State() {
             onKeyPress={handleKeyPress}
             placeholder="숫자를 입력하세요"
             className="input input-bordered flex-grow"
+            ref={inputRef}
           />
-          <button
-            onClick={recordNumber}
-            className="btn btn-primary"
-            disabled={!inputValue}
-          >
+          <button onClick={recordNumber} className="btn btn-primary">
             기록
           </button>
         </div>
